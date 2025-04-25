@@ -1,3 +1,3 @@
-export type {NavItem} from './model/types'
+export type { NavItem } from './model/types';
 
-export {UiNav} from './ui/ui-nav'
+export { UiNav } from './ui/ui-nav';

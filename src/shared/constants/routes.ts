@@ -1,3 +1,3 @@
 export const ROUTER_PATHS = {
-  STATUSES: '/statuses'
-} as const
+  STATUSES: '/statuses',
+} as const;

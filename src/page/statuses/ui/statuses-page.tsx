@@ -1,5 +1,3 @@
 export function StatusesPage() {
-  return (
-    <div>statuses</div>
-  )
+  return <div>statuses</div>;
 }

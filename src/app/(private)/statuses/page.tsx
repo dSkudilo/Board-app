@@ -1,3 +1,3 @@
-import {StatusesPage} from "@/page/statuses";
+import { StatusesPage } from '@/page/statuses';
 
-export default StatusesPage
+export default StatusesPage;
