@@ -29,7 +29,7 @@ export function UiNav() {
             key={item.href}
             className={cn(
               getActiveClasses(item),
-              'transition-colors px-2 py-1  hover:text-primary hover:bg-secondary rounded-xl'
+              'transition-colors px-2 py-1  hover:text-primary hover:bg-secondary rounded-xl flex justify-center items-center'
             )}
           >
             <Link href={item.href} passHref>

@@ -1,4 +1,4 @@
-import { getItem, setItem } from 'localforage';
+import localforage from 'localforage';
 
 const makeError = (e: unknown) => {
   if (e instanceof Error) {
@@ -15,16 +15,15 @@ export const persistStorage = {
     defaultValue: T
   ): Promise<T | undefined> => {
     try {
-      const res = await getItem<T>(key);
+      const res = await localforage.getItem<T>(key);
       return res || defaultValue;
     } catch (e: unknown) {
       makeError(e);
     }
   },
-
   setItemsSafe: async <T>(key: string, value: T) => {
     try {
-      return await setItem<T>(key, value);
+      return await localforage.setItem(key, value);
     } catch (e: unknown) {
       makeError(e);
     }

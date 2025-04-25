@@ -13,7 +13,7 @@ export function UiHeader({ className, left, right, navBar }: props) {
     <div
       className={cn(
         className,
-        'bg-primary text-secondary flex justify-center items-center gap-x-4 h-16 relative'
+        'bg-primary text-secondary flex justify-center items-center gap-x-4 h-16 relative border-b border-ring'
       )}
     >
       <div className="absolute left-4 top-1/2 -translate-y-1/2">{left}</div>
