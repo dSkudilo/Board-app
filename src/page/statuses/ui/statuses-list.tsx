@@ -1,10 +1,110 @@
-import { UiOverlay } from '@/shared/ui';
+import { UiOverlay, UiTable } from '@/shared/ui';
+import { Status } from '@/entities/status';
+import { TableHeaderItem } from '@/shared/ui';
 
-export function StatusesList() {
+type Props = {
+  statuses: Status[];
+};
+
+const header: TableHeaderItem[] = [
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+    width: '200px',
+  },
+  {
+    id: '1',
+    name: 'daasdasdasd',
+    field: 'test',
+    // width: '1fr',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+  {
+    id: '1',
+    name: 'da',
+    field: 'test',
+  },
+];
+
+export function StatusesList({ statuses }: Props) {
   return (
-    <div className="flex flex-col gap-y-4">
-      <UiOverlay> asdasdasdas</UiOverlay>
-      <UiOverlay isLoading={false}> asdasdasdas</UiOverlay>
-    </div>
+    <UiOverlay>
+      <UiTable items={statuses} headers={header} />
+    </UiOverlay>
   );
 }

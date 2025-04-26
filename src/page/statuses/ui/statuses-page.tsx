@@ -3,18 +3,22 @@ import { StatusesPageWrapper } from './statuses-page-wrapper';
 import { StatusesList } from './statuses-list';
 import { UiOverlay } from '@/shared/ui';
 import { StatusCreate } from '@/features/status';
-import { statusesModel } from '@/entities/status';
+import { useStatuses } from '@/entities/status';
+import { useEffect } from 'react';
 
 export function StatusesPage() {
-  const statusesModelFn = statusesModel();
+  const { fetchData, createStatus, memoStatuses } = useStatuses();
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <StatusesPageWrapper
       actions={
         <UiOverlay>
-          <StatusCreate onCreate={statusesModelFn.createStatus} />
+          <StatusCreate onCreate={createStatus} />
         </UiOverlay>
       }
-      list={<StatusesList></StatusesList>}
+      list={<StatusesList statuses={memoStatuses}></StatusesList>}
     ></StatusesPageWrapper>
   );
 }
