@@ -9,3 +9,4 @@ export { UiSpinner } from './ui-spinner';
 export { UiButton } from './ui-button';
 export { UiInput } from './ui-input';
 export { UiTable } from './ui-table';
+export { UiSkeleton } from './ui-skeleton';

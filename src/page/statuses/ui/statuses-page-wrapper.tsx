@@ -6,10 +6,10 @@ type props = {
 };
 export function StatusesPageWrapper({ actions, list }: props) {
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-4 flex-grow overflow-hidden">
       <div className="font-bold">Статусы</div>
       {actions}
-      {list}
+      <div className="flex flex-col flex-grow overflow-hidden">{list}</div>
     </div>
   );
 }

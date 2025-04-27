@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/shared/lib';
 import { UiSpinner } from '@/shared/ui/index';
 
 type props = {
@@ -13,7 +13,7 @@ export function UiOverlay({ children, isLoading, className }: props) {
     <div
       className={cn(
         className,
-        'bg-primary rounded-lg text-secondary p-4 shadow-card border border-ring relative'
+        'bg-primary rounded-lg text-secondary p-4 shadow-card border border-ring relative '
       )}
     >
       {isLoading && (
