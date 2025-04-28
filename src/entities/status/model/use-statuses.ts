@@ -5,7 +5,7 @@ import { useMemo, useState } from 'react';
 
 export function useStatuses() {
   const [statuses, setStatuses] = useState<Status[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const memoStatuses = useMemo(() => {
     return [...statuses];
@@ -19,13 +19,17 @@ export function useStatuses() {
 
   const fetchData = async () => {
     setIsLoading(true);
-    await Promise.all([loadStatuses()]);
+    await Promise.all([await loadStatuses()]);
     setIsLoading(false);
   };
 
-  const createStatus = async (data: StatusPayload) => {
+  const addStatus = async (data: StatusPayload) => {
     const newStatus = { id: nanoid(), ...data };
     await statusesRepository.addStatus(newStatus);
+  };
+
+  const createStatus = async (data: StatusPayload) => {
+    await Promise.all([await addStatus(data), await loadStatuses()]);
   };
 
   return { createStatus, memoStatuses, fetchData, isLoading };

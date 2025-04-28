@@ -1,7 +1,12 @@
 import { Identifiable, TableProps } from '@/shared/ui/ui-table/model/types';
-import { useMemo } from 'react';
+import { ReactNode } from 'react';
 import { cn } from '@/shared/lib';
 import { UiSkeleton } from '@/shared/ui';
+import { TableCell } from '@/shared/ui/ui-table/ui/table-cell';
+import { TableRow } from '@/shared/ui/ui-table/ui/table-row';
+import { TableHeaderRow } from '@/shared/ui/ui-table/ui/table-header-row';
+import { useRow } from '@/shared/ui/ui-table/model/use-row';
+import { TableWrapper } from '@/shared/ui/ui-table/ui/table-wrapper';
 
 export function UiTable<T extends Identifiable>({
   items,
@@ -10,66 +15,39 @@ export function UiTable<T extends Identifiable>({
   className,
   numberItemsForLoader = 10,
 }: TableProps<T>) {
-  const gridTemplateColumns = useMemo(() => {
-    const widthArr = headers.reduce((acc: string[], col) => {
-      if (col.width) acc.push(`${col.width}`);
-      else acc.push('minmax(100px, 1fr)');
-      return acc;
-    }, []);
-    return widthArr.join(' ');
-  }, [headers]);
+  const { gridTemplateColumns } = useRow(headers);
 
   return (
-    <div
-      className={cn(
-        className,
-        ' border-t border-b border-input  relative w-full h-full overflow-x-auto no-scrollbar overflow-y-scroll'
-      )}
-    >
-      <div
-        className="grid border-b border-input  min-w-min sticky top-0 bg-primary z-10"
-        style={{ gridTemplateColumns }}
-      >
+    <TableWrapper className={className}>
+      <TableHeaderRow style={{ gridTemplateColumns }}>
         {headers.map((item) => (
-          <div key={item.id} className="px-2 py-4">
-            {item.name}
-          </div>
+          <TableCell key={item.id}>{item.name}</TableCell>
         ))}
-      </div>
+      </TableHeaderRow>
 
       {!isLoading &&
         items.map((item) => (
-          <div
-            key={item.id}
-            className="grid min-w-min [&:not(:last-child)]:border-b border-input"
-            style={{ gridTemplateColumns }}
-          >
+          <TableRow key={item.id} style={{ gridTemplateColumns }}>
             {headers.map((header) => (
-              <div className="px-2 py-2" key={`${header.id}-${item.id}`}></div>
+              <TableCell key={`${header.id}-${item.id}`}>
+                {header.slotRender
+                  ? header.slotRender(item)
+                  : header.field && (item[header.field] as ReactNode)}
+              </TableCell>
             ))}
-          </div>
+          </TableRow>
         ))}
 
       {isLoading &&
         Array.from({ length: numberItemsForLoader }).map((_, index) => (
-          <div
-            key={index}
-            className="grid min-w-min [&:not(:last-child)]:border-b border-input"
-            style={{ gridTemplateColumns }}
-          >
+          <TableRow key={index} style={{ gridTemplateColumns }}>
             {headers.map((header) => (
-              <div
-                className="px-2 py-2 h-14 flex items-center"
-                key={`${header.id}-${index}`}
-              >
-                <UiSkeleton
-                  className="h-4 w-full"
-                  numberForWidth={header.isRandomSkeletonWidth ? index : null}
-                />
-              </div>
+              <TableCell key={`${header.id}-${index}`}>
+                <UiSkeleton className="h-5 w-full" />
+              </TableCell>
             ))}
-          </div>
+          </TableRow>
         ))}
-    </div>
+    </TableWrapper>
   );
 }
