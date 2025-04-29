@@ -1,6 +1,5 @@
 import { Identifiable, TableProps } from '@/shared/ui/ui-table/model/types';
-import { ReactNode } from 'react';
-import { cn } from '@/shared/lib';
+import { ReactNode, memo } from 'react';
 import { UiSkeleton } from '@/shared/ui';
 import { TableCell } from '@/shared/ui/ui-table/ui/table-cell';
 import { TableRow } from '@/shared/ui/ui-table/ui/table-row';
@@ -8,7 +7,7 @@ import { TableHeaderRow } from '@/shared/ui/ui-table/ui/table-header-row';
 import { useRow } from '@/shared/ui/ui-table/model/use-row';
 import { TableWrapper } from '@/shared/ui/ui-table/ui/table-wrapper';
 
-export function UiTable<T extends Identifiable>({
+export const UiTable = memo(function UiTable<T extends Identifiable>({
   items,
   headers,
   isLoading,
@@ -16,7 +15,7 @@ export function UiTable<T extends Identifiable>({
   numberItemsForLoader = 10,
 }: TableProps<T>) {
   const { gridTemplateColumns } = useRow(headers);
-
+  console.log('12312');
   return (
     <TableWrapper className={className}>
       <TableHeaderRow style={{ gridTemplateColumns }}>
@@ -31,7 +30,7 @@ export function UiTable<T extends Identifiable>({
             {headers.map((header) => (
               <TableCell key={`${header.id}-${item.id}`}>
                 {header.slotRender
-                  ? header.slotRender(item)
+                  ? header.slotRender({ item })
                   : header.field && (item[header.field] as ReactNode)}
               </TableCell>
             ))}
@@ -50,4 +49,4 @@ export function UiTable<T extends Identifiable>({
         ))}
     </TableWrapper>
   );
-}
+});

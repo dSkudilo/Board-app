@@ -13,3 +13,4 @@ export { UiSkeleton } from './ui-skeleton';
 export { UiDeleteButton } from './ui-delete-button';
 export { UiEditButton } from './ui-edit-button';
 export { UiDialog } from './ui-dialog';
+export { UiConfirmation } from './ui-confirmation';

@@ -1,7 +1,8 @@
 import { Status } from '@/entities/status';
-import { UiDeleteButton, UiEditButton } from '@/shared/ui';
+import { UiEditButton } from '@/shared/ui';
+import { UiConfirmationDelete } from '@/shared/ui/ui-confirmation-delete';
 
-function StatusesListActionsUi({
+export function StatusesListActions({
   item,
   onDelete,
   onEdit,
@@ -13,25 +14,7 @@ function StatusesListActionsUi({
   return (
     <div className="flex items-center gap-x-2">
       <UiEditButton item={item} onEdit={onEdit} />
-      <UiDeleteButton item={item} onDelete={onDelete} />
+      <UiConfirmationDelete confirmFn={onDelete} item={item} />
     </div>
   );
-}
-
-export function StatusesListActions({
-  onDelete,
-  onEdit,
-}: {
-  onDelete: (item: Status) => void;
-  onEdit: (item: Status) => void;
-}) {
-  const renderActions = (item: Status) => (
-    <StatusesListActionsUi
-      item={item}
-      onDelete={() => onDelete(item)}
-      onEdit={() => onEdit(item)}
-    />
-  );
-  renderActions.displayName = 'StatusesListActions';
-  return renderActions;
 }

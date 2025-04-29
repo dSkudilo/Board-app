@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import { ReactNode } from 'react';
 
 export type TableProps<T extends Identifiable> = {
   items: T[];
@@ -15,7 +15,7 @@ export type TableHeaderItem<T> = {
   width?: string;
   type?: 'data' | 'actions';
   isRandomSkeletonWidth?: boolean;
-  slotRender?: (item: T) => ReactNode
+  slotRender?: (props: T) => ReactNode;
 };
 
 export type Identifiable = {
