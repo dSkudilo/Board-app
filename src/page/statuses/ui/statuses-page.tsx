@@ -15,7 +15,6 @@ export function StatusesPage() {
         name: 'Название',
         field: 'name',
         width: 'minmax(100px, 1fr)',
-        isRandomSkeletonWidth: true,
       },
       {
         id: 'statusesColor',
