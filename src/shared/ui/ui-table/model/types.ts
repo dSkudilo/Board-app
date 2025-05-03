@@ -2,20 +2,19 @@ import { ReactNode } from 'react';
 
 export type TableProps<T extends Identifiable> = {
   items: T[];
-  headers: TableHeaderItem<T>[];
+  headers: TableHeaderItem[];
   isLoading?: boolean;
   className?: string;
   numberItemsForLoader?: number;
 };
 
-export type TableHeaderItem<T> = {
+export type TableHeaderItem = {
   name: string;
-  field?: keyof T;
+  field?: string;
   id: string;
   width?: string;
   type?: 'data' | 'actions';
-  isRandomSkeletonWidth?: boolean;
-  slotRender?: (props: T) => ReactNode;
+  slotRender?: ({ ...props }) => ReactNode;
 };
 
 export type Identifiable = {

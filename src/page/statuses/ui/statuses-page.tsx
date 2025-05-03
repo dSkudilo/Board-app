@@ -1,15 +1,28 @@
 'use client';
 import { StatusesPageWrapper } from './statuses-page-wrapper';
-import { TableHeaderItem, UiOverlay, UiTable } from '@/shared/ui';
-import { StatusCreate } from '@/features/status';
+import { TableHeaderItem, UiColorCell, UiOverlay, UiTable } from '@/shared/ui';
+import { StatusCreate } from '@/features/status/create';
 import { Status, useStatuses } from '@/entities/status';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { StatusesListActions } from '@/page/statuses/ui/statuses-list-actions';
 import { renderTableCellWithClosure } from '@/shared/ui/ui-table';
+import { StatusEditDialog } from '@/features/status/edit';
 
 export function StatusesPage() {
-  const { fetchData, createStatus, memoStatuses, isLoading } = useStatuses();
-  const headers = useMemo<TableHeaderItem<Status>[]>(
+  const {
+    fetchData,
+    createStatus,
+    memoStatuses,
+    isLoading,
+    removeStatus,
+    openEditStatus,
+    isStatusEditOpen,
+    closeEditStatus,
+    editStatus,
+    updateStatus,
+    isStatusUpdate,
+  } = useStatuses();
+  const headers = useMemo<TableHeaderItem[]>(
     () => [
       {
         id: 'statusesName',
@@ -22,6 +35,9 @@ export function StatusesPage() {
         name: 'Цвет',
         field: 'color',
         width: '100px',
+        slotRender: renderTableCellWithClosure({
+          component: UiColorCell,
+        }),
       },
       {
         id: 'statusesActions',
@@ -30,11 +46,11 @@ export function StatusesPage() {
         type: 'actions',
         slotRender: renderTableCellWithClosure({
           component: StatusesListActions,
-          onDelete: (item: Status) => {
-            console.log('on delete', item);
+          onDelete: async (item: Status) => {
+            if (item.id) await removeStatus(item.id);
           },
-          onEdit: (item: Status) => {
-            console.log('on edit', item);
+          onEdit: async (item: Status) => {
+            if (item.id) await openEditStatus(item.id);
           },
         }),
       },
@@ -42,8 +58,6 @@ export function StatusesPage() {
     []
   );
 
-  const [test, setTes] = useState(false);
-  console.log('parent render');
   useEffect(() => {
     fetchData();
   }, []);
@@ -52,9 +66,6 @@ export function StatusesPage() {
       actions={
         <UiOverlay>
           <StatusCreate onCreate={createStatus} />
-          <button onClick={() => setTes((v) => !v)}>
-            yag {test ? 'true' : 'false'}
-          </button>
         </UiOverlay>
       }
       list={
@@ -64,11 +75,21 @@ export function StatusesPage() {
         >
           <UiTable
             items={memoStatuses}
-            headers={headers}
             isLoading={isLoading}
             numberItemsForLoader={20}
+            headers={headers}
           />
         </UiOverlay>
+      }
+      dialogs={
+        isStatusEditOpen && (
+          <StatusEditDialog
+            status={editStatus}
+            onOpenChange={closeEditStatus}
+            onUpdateStatus={updateStatus}
+            isLoading={isStatusUpdate}
+          />
+        )
       }
     ></StatusesPageWrapper>
   );

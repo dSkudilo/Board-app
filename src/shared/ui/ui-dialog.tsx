@@ -12,11 +12,13 @@ import { ReactNode } from 'react';
 import { Button } from '@/shared/ui/shadcn/button';
 
 type Props = {
-  trigger: ReactNode;
+  trigger?: ReactNode;
   content?: ReactNode;
   title?: string;
   description?: string;
   actions?: ReactNode;
+  open?: boolean;
+  onOpenChange?: (val: boolean) => void;
 };
 
 export function UiDialog({
@@ -25,17 +27,17 @@ export function UiDialog({
   title,
   description,
   actions,
+  open,
+  onOpenChange,
 }: Props) {
   return (
-    <Dialog>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       {title && (
         <DialogContent className="w-10/12 max-w-[600px]">
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
-            {description && (
-              <DialogDescription>{description}</DialogDescription>
-            )}
+            <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
           {content && content}
           {actions && (

@@ -15,7 +15,7 @@ export const UiTable = memo(function UiTable<T extends Identifiable>({
   numberItemsForLoader = 10,
 }: TableProps<T>) {
   const { gridTemplateColumns } = useRow(headers);
-  console.log('12312');
+  console.log('render table');
   return (
     <TableWrapper className={className}>
       <TableHeaderRow style={{ gridTemplateColumns }}>
@@ -30,8 +30,12 @@ export const UiTable = memo(function UiTable<T extends Identifiable>({
             {headers.map((header) => (
               <TableCell key={`${header.id}-${item.id}`}>
                 {header.slotRender
-                  ? header.slotRender({ item })
-                  : header.field && (item[header.field] as ReactNode)}
+                  ? header.slotRender({
+                      item: item,
+                      cellValue: item[header.field as keyof typeof item],
+                    })
+                  : header.field &&
+                    (item[header.field as keyof typeof item] as ReactNode)}
               </TableCell>
             ))}
           </TableRow>
