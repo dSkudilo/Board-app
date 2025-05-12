@@ -1,14 +1,11 @@
 import { Status, StatusPayload } from './types';
 import { nanoid } from 'nanoid';
 import { statusesRepository } from '@/entities/status/model/statuses-repository';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export function useStatuses() {
   const [statuses, setStatuses] = useState<Status[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isStatusEditOpen, setIsStatusEditOpen] = useState(false);
-  const [editStatus, setEditStatus] = useState<Status | null>(null);
-  const [isStatusUpdate, setIsStatusUpdate] = useState(false);
 
   const memoStatuses = useMemo(() => {
     return [...statuses];
@@ -41,43 +38,15 @@ export function useStatuses() {
       await loadStatuses(),
     ]);
   };
-
-  const loadStatus = async (id: string) => {
-    const res = await statusesRepository.getStatus(id);
-    return res || null;
-  };
-
-  const openEditStatus = async (statusId: string) => {
-    const status = await loadStatus(statusId);
-    if (!status) return;
-    setEditStatus(status);
-    setIsStatusEditOpen(true);
-  };
-
-  const closeEditStatus = () => {
-    setIsStatusEditOpen(false);
-    setEditStatus(null);
-  };
-
-  const updateStatus = async (data: Status) => {
-    setIsStatusUpdate(true);
-    await statusesRepository.saveStatus(data);
-    setIsStatusUpdate(false);
-    closeEditStatus();
-    await loadStatuses();
-  };
-
+  useEffect(() => {
+    fetchData();
+  }, []);
   return {
     createStatus,
     memoStatuses,
     fetchData,
     isLoading,
     removeStatus,
-    openEditStatus,
-    isStatusEditOpen,
-    closeEditStatus,
-    editStatus,
-    updateStatus,
-    isStatusUpdate,
+    loadStatuses,
   };
 }

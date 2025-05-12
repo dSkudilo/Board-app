@@ -3,25 +3,17 @@ import { StatusesPageWrapper } from './statuses-page-wrapper';
 import { TableHeaderItem, UiColorCell, UiOverlay, UiTable } from '@/shared/ui';
 import { StatusCreate } from '@/features/status/create';
 import { Status, useStatuses } from '@/entities/status';
-import { useEffect, useMemo } from 'react';
+import { ReactNode, useEffect, useMemo } from 'react';
 import { StatusesListActions } from '@/page/statuses/ui/statuses-list-actions';
 import { renderTableCellWithClosure } from '@/shared/ui/ui-table';
-import { StatusEditDialog } from '@/features/status/edit';
+import { useRouter, usePathname } from 'next/navigation';
+import { ROUTER_PATHS } from '@/shared/constants';
 
-export function StatusesPage() {
-  const {
-    fetchData,
-    createStatus,
-    memoStatuses,
-    isLoading,
-    removeStatus,
-    openEditStatus,
-    isStatusEditOpen,
-    closeEditStatus,
-    editStatus,
-    updateStatus,
-    isStatusUpdate,
-  } = useStatuses();
+export function StatusesPage({ children }: { children: ReactNode }) {
+  const { createStatus, memoStatuses, isLoading, removeStatus, loadStatuses } =
+    useStatuses();
+  const router = useRouter();
+  const pathname = usePathname();
   const headers = useMemo<TableHeaderItem[]>(
     () => [
       {
@@ -49,18 +41,17 @@ export function StatusesPage() {
           onDelete: async (item: Status) => {
             if (item.id) await removeStatus(item.id);
           },
-          onEdit: async (item: Status) => {
-            if (item.id) await openEditStatus(item.id);
+          onEdit: (item: Status) => {
+            if (item.id) router.push(`${ROUTER_PATHS.STATUSES}/${item.id}`);
           },
         }),
       },
     ],
     []
   );
-
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (pathname === ROUTER_PATHS.STATUSES) loadStatuses();
+  }, [pathname]);
   return (
     <StatusesPageWrapper
       actions={
@@ -81,16 +72,8 @@ export function StatusesPage() {
           />
         </UiOverlay>
       }
-      dialogs={
-        isStatusEditOpen && (
-          <StatusEditDialog
-            status={editStatus}
-            onOpenChange={closeEditStatus}
-            onUpdateStatus={updateStatus}
-            isLoading={isStatusUpdate}
-          />
-        )
-      }
-    ></StatusesPageWrapper>
+    >
+      {children}
+    </StatusesPageWrapper>
   );
 }
