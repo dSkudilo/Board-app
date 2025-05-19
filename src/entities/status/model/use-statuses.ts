@@ -17,12 +17,6 @@ export function useStatuses() {
     setStatuses(res);
   };
 
-  const fetchData = async () => {
-    setIsLoading(true);
-    await Promise.all([await loadStatuses()]);
-    setIsLoading(false);
-  };
-
   const addStatus = async (data: StatusPayload) => {
     const newStatus = { id: nanoid(), ...data };
     await statusesRepository.saveStatus(newStatus);
@@ -38,13 +32,19 @@ export function useStatuses() {
       await loadStatuses(),
     ]);
   };
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    await Promise.all([await loadStatuses()]);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
   return {
     createStatus,
     memoStatuses,
-    fetchData,
     isLoading,
     removeStatus,
     loadStatuses,
