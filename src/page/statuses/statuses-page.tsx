@@ -1,5 +1,5 @@
 'use client';
-import { StatusesPageWrapper } from './statuses-page-wrapper';
+import { StatusesPageWrapper } from './ui/statuses-page-wrapper';
 import { TableHeaderItem, UiColorCell, UiOverlay, UiTable } from '@/shared/ui';
 import { StatusCreate } from '@/features/status/create';
 import { setStatuses, Status, useStatuses } from '@/entities/status';

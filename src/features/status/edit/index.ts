@@ -1,1 +1,1 @@
-export { StatusEditDialog } from './ui/status-edit-dialog';
+export { StatusEditDialog } from './status-edit-dialog';

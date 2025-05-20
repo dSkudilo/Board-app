@@ -1,8 +1,8 @@
-import { StatusCreateWrapper } from './status-create-wrapper';
+import { StatusCreateWrapper } from './ui/status-create-wrapper';
 import { Controller, useForm } from 'react-hook-form';
 import { UiButton, UiInput } from '@/shared/ui';
 import { Status, StatusPayload } from '@/entities/status';
-import { StatusCreateFormWrapper } from './status-create-form-wrapper';
+import { StatusCreateFormWrapper } from './ui/status-create-form-wrapper';
 import { UiColorSelect } from '@/shared/ui/ui-color-select';
 import { statusColors } from '@/entities/status/model/constants';
 type Props = {

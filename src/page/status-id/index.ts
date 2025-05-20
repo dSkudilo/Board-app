@@ -1,1 +1,1 @@
-export { StatusIdPage } from './ui/status-id-page';
+export { StatusIdPage } from './status-id-page';
