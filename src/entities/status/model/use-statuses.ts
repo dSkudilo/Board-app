@@ -1,15 +1,10 @@
 import { Status, StatusPayload } from './types';
 import { nanoid } from 'nanoid';
 import { statusesRepository } from '@/entities/status/model/statuses-repository';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export function useStatuses() {
-  const [statuses, setStatuses] = useState<Status[]>([]);
+export function useStatuses(setStatuses: (status: Status[]) => void) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  const memoStatuses = useMemo(() => {
-    return [...statuses];
-  }, [statuses]);
 
   const loadStatuses = async () => {
     const res = await statusesRepository.getStatuses();
@@ -44,7 +39,6 @@ export function useStatuses() {
   }, []);
   return {
     createStatus,
-    memoStatuses,
     isLoading,
     removeStatus,
     loadStatuses,

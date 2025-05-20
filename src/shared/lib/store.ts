@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import {
   combineSlices,
   Dispatch,
@@ -18,8 +18,9 @@ export type AppGetState = () => AppState;
 export type AppDispatch = ThunkDispatch<any, unknown, UnknownAction> & Dispatch;
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
-export const useAppSelector = () => useSelector.withTypes();
 
-//Реализовываю строгость типов не за счёт глобальных типов типа AppState и тп.
+export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
+
+//Реализовываю строгость типов не за счёт глобальных ипов типа AppState и тп.
 //а за счет селекторов и акшенов которые строго типизированне
 //и дальше все связывается за счет импортов

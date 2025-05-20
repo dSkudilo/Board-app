@@ -1,20 +1,27 @@
 'use client';
 import { StatusEditDialog } from '@/features/status/edit';
-import { useStatus } from '@/entities/status';
+import { setStatuses, useStatus, useStatuses } from '@/entities/status';
 import { useRouter } from 'next/navigation';
 import { ROUTER_PATHS } from '@/shared/constants';
 import { use } from 'react';
+import { bindActionCreators } from 'redux';
+import { useAppDispatch } from '@/shared/lib';
 type StatusIdPageProps = {
   params: Promise<{
-    id: string; // Adjust based on your actual params structure
+    id: string;
   }>;
 };
 export function StatusIdPage({ params }: StatusIdPageProps) {
+  const router = useRouter();
+
+  const actions = bindActionCreators({ setStatuses }, useAppDispatch());
+  const { loadStatuses } = useStatuses(actions.setStatuses);
+
   const unwrappedParams = use(params);
   const { status, isStatusUpdate, updateStatus } = useStatus(
-    unwrappedParams.id
+    unwrappedParams.id,
+    loadStatuses
   );
-  const router = useRouter();
   return (
     <>
       {status && (

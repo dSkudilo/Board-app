@@ -1,6 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { slicesRegistry } from '@/shared/lib';
+import { statusesReducer } from '@/entities/status';
 
 export const store = configureStore({
-  reducer: slicesRegistry,
+  reducer: {
+    statuses: statusesReducer,
+  },
 });

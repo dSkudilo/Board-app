@@ -2,18 +2,24 @@
 import { StatusesPageWrapper } from './statuses-page-wrapper';
 import { TableHeaderItem, UiColorCell, UiOverlay, UiTable } from '@/shared/ui';
 import { StatusCreate } from '@/features/status/create';
-import { Status, useStatuses } from '@/entities/status';
-import { ReactNode, useEffect, useMemo } from 'react';
+import { setStatuses, Status, useStatuses } from '@/entities/status';
+import { ReactNode, useMemo } from 'react';
 import { StatusesListActions } from '@/page/statuses/ui/statuses-list-actions';
 import { renderTableCellWithClosure } from '@/shared/ui/ui-table';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { ROUTER_PATHS } from '@/shared/constants';
+import { bindActionCreators } from 'redux';
+import { useAppDispatch, useAppSelector } from '@/shared/lib';
+import { selectStatusesList } from '@/entities/status';
 
 export function StatusesPage({ children }: { children: ReactNode }) {
-  const { createStatus, memoStatuses, isLoading, removeStatus, loadStatuses } =
-    useStatuses();
+  const statusesList = useAppSelector(selectStatusesList);
+  const actions = bindActionCreators({ setStatuses }, useAppDispatch());
+
+  const { createStatus, isLoading, removeStatus } = useStatuses(
+    actions.setStatuses
+  );
   const router = useRouter();
-  const pathname = usePathname();
   const headers = useMemo<TableHeaderItem[]>(
     () => [
       {
@@ -49,9 +55,6 @@ export function StatusesPage({ children }: { children: ReactNode }) {
     ],
     []
   );
-  useEffect(() => {
-    if (pathname === ROUTER_PATHS.STATUSES) loadStatuses();
-  }, [pathname]);
   return (
     <StatusesPageWrapper
       actions={
@@ -65,7 +68,7 @@ export function StatusesPage({ children }: { children: ReactNode }) {
           isLoading={isLoading}
         >
           <UiTable
-            items={memoStatuses}
+            items={statusesList}
             isLoading={isLoading}
             numberItemsForLoader={20}
             headers={headers}
