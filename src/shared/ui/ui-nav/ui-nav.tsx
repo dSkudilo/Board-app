@@ -1,26 +1,16 @@
 'use client';
-import { NavItem } from '../model/types';
-import { ROUTER_PATHS } from '@/shared/constants';
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
 } from '@/shared/ui/shadcn/navigation-menu';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { cn } from '@/shared/lib';
-
-const navList: NavItem[] = [
-  {
-    title: 'Статусы',
-    href: ROUTER_PATHS.STATUSES,
-  },
-];
+import { useNav } from './model/use-nav';
+import { navList } from './model/nav-list';
 
 export function UiNav() {
-  const pathname = usePathname();
-  const getActiveClasses = (navItem: NavItem) =>
-    pathname === navItem.href ? 'text-primary bg-secondary ' : '';
+  const { getActiveClasses } = useNav();
   return (
     <NavigationMenu>
       <NavigationMenuList className="flex gap-x-4">

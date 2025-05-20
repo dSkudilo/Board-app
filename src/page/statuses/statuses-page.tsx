@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { useAppDispatch, useAppSelector } from '@/shared/lib';
 import { selectStatusesList } from '@/entities/status';
 import { useTableHeader } from './model/use-table-header';
-import { useOpenEditModal } from '@/page/statuses/model/open-edit-modal';
+import { useOpenEditModal } from '@/page/statuses/model/use-open-edit-modal';
 
 export function StatusesPage({ children }: { children: ReactNode }) {
   const statusesList = useAppSelector(selectStatusesList);
