@@ -15,3 +15,5 @@ export { UiEditButton } from './ui-edit-button';
 export { UiDialog } from './ui-dialog';
 export { UiConfirmation } from './ui-confirmation';
 export { UiColorCell } from './ui-color-cell';
+export { renderTableCellWithClosure } from './ui-table/model/render-table-cell-with-closure';
+export { uiToast } from './ui-toaster';

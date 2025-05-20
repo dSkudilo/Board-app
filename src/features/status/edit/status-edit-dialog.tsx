@@ -31,6 +31,7 @@ export function StatusEditDialog({
           onSubmit={handleSubmit(async (data) => {
             onUpdateStatus(data);
             reset();
+            onOpenChange(false);
           })}
         >
           <Controller

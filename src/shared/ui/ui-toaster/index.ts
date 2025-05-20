@@ -1,2 +1,2 @@
-export { UiToaster } from './ui/ui-toaster';
+export { UiToaster } from './ui-toaster';
 export { uiToast } from './model/show-toast';

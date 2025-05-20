@@ -1,1 +1,1 @@
-export { StatusCreate } from './ui/status-create';
+export { StatusCreate } from './status-create';
