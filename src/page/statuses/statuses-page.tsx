@@ -1,16 +1,14 @@
 'use client';
 import { StatusesPageWrapper } from './ui/statuses-page-wrapper';
-import { TableHeaderItem, UiColorCell, UiOverlay, UiTable } from '@/shared/ui';
+import { UiOverlay, UiTable } from '@/shared/ui';
 import { StatusCreate } from '@/features/status/create';
-import { setStatuses, Status, useStatuses } from '@/entities/status';
-import { ReactNode, useMemo } from 'react';
-import { StatusesListActions } from '@/page/statuses/ui/statuses-list-actions';
-import { renderTableCellWithClosure } from '@/shared/ui/ui-table';
-import { useRouter } from 'next/navigation';
-import { ROUTER_PATHS } from '@/shared/constants';
+import { setStatuses, useStatuses } from '@/entities/status';
+import { ReactNode } from 'react';
 import { bindActionCreators } from 'redux';
 import { useAppDispatch, useAppSelector } from '@/shared/lib';
 import { selectStatusesList } from '@/entities/status';
+import { useTableHeader } from './model/use-table-header';
+import { useOpenEditModal } from '@/page/statuses/model/open-edit-modal';
 
 export function StatusesPage({ children }: { children: ReactNode }) {
   const statusesList = useAppSelector(selectStatusesList);
@@ -19,42 +17,9 @@ export function StatusesPage({ children }: { children: ReactNode }) {
   const { createStatus, isLoading, removeStatus } = useStatuses(
     actions.setStatuses
   );
-  const router = useRouter();
-  const headers = useMemo<TableHeaderItem[]>(
-    () => [
-      {
-        id: 'statusesName',
-        name: 'Название',
-        field: 'name',
-        width: 'minmax(100px, 1fr)',
-      },
-      {
-        id: 'statusesColor',
-        name: 'Цвет',
-        field: 'color',
-        width: '100px',
-        slotRender: renderTableCellWithClosure({
-          component: UiColorCell,
-        }),
-      },
-      {
-        id: 'statusesActions',
-        name: '',
-        width: '94px',
-        type: 'actions',
-        slotRender: renderTableCellWithClosure({
-          component: StatusesListActions,
-          onDelete: async (item: Status) => {
-            if (item.id) await removeStatus(item.id);
-          },
-          onEdit: (item: Status) => {
-            if (item.id) router.push(`${ROUTER_PATHS.STATUSES}/${item.id}`);
-          },
-        }),
-      },
-    ],
-    []
-  );
+
+  const { openEditModal } = useOpenEditModal();
+  const { headers } = useTableHeader(removeStatus, openEditModal);
   return (
     <StatusesPageWrapper
       actions={
