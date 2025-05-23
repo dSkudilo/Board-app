@@ -6,4 +6,8 @@ export const navList: NavItem[] = [
     title: 'Статусы',
     href: ROUTER_PATHS.STATUSES,
   },
+  {
+    title: 'Пользователи',
+    href: ROUTER_PATHS.USERS,
+  },
 ];

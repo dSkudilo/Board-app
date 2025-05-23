@@ -17,3 +17,5 @@ export { UiConfirmation } from './ui-confirmation';
 export { UiColorCell } from './ui-color-cell';
 export { renderTableCellWithClosure } from './ui-table/model/render-table-cell-with-closure';
 export { uiToast } from './ui-toaster';
+export { UiImgSelect } from './ui-img-select';
+export { UiImgCell } from './ui-img-cell';
