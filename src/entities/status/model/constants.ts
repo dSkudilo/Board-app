@@ -1,4 +1,4 @@
-import { ColorItem } from '@/shared/ui/ui-color-select';
+import { ColorItem } from '@/shared/lib';
 
 export const statusColors: ColorItem[] = [
   { id: '1', color: 'green-500' },

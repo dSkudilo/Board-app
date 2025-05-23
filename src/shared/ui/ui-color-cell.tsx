@@ -1,5 +1,4 @@
-import { ColorItem } from '@/shared/ui/ui-color-select';
-import { cn } from '@/shared/lib';
+import { cn, ColorItem } from '@/shared/lib';
 
 export function UiColorCell({ cellValue }: { cellValue: ColorItem }) {
   return (

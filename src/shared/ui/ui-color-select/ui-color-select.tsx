@@ -1,9 +1,9 @@
-import { ColorItem } from '@/shared/ui/ui-color-select/index';
+import { ColorItem } from '@/shared/lib';
 import * as React from 'react';
 import { ColorBtn } from './ui/color-btn';
 import { ErrorText } from './ui/error-text';
 import { ColorWrapper } from './ui/color-wrapper';
-import { isColorsEqual } from '@/shared/ui/ui-color-select/model/domain/is-active';
+import { isColorsEqual } from './model/domain/is-active';
 
 type Props = {
   className?: string;
