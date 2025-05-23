@@ -3,7 +3,7 @@ import { Status } from '@/entities/status/model/domain/types';
 import { statusesLoadComplete } from '@/entities/status/model/domain/events';
 
 export const setStatuses = (statuses: Status[]) => (dispatch: AppDispatch) => {
-  if (statuses.length === 0) return;
+  if (!Array.isArray(statuses)) return;
 
   dispatch(statusesLoadComplete(statuses));
 };

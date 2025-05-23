@@ -14,9 +14,7 @@ export function StatusesPage({ children }: { children: ReactNode }) {
   const statusesList = useAppSelector(selectStatusesList);
   const actions = bindActionCreators({ setStatuses }, useAppDispatch());
 
-  const { createStatus, isLoading, removeStatus } = useStatuses(
-    actions.setStatuses
-  );
+  const { isLoading, removeStatus } = useStatuses(actions.setStatuses);
 
   const { openEditModal } = useOpenEditModal();
   const { headers } = useTableHeader(removeStatus, openEditModal);
@@ -24,7 +22,7 @@ export function StatusesPage({ children }: { children: ReactNode }) {
     <StatusesPageWrapper
       actions={
         <UiOverlay>
-          <StatusCreate onCreate={createStatus} />
+          <StatusCreate />
         </UiOverlay>
       }
       list={
