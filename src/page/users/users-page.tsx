@@ -13,7 +13,7 @@ import { useOpenEditModal } from './model/use-open-edit-modal';
 export function UsersPage({ children }: { children: ReactNode }) {
   const usersList = useAppSelector(selectUsersList);
   const actions = bindActionCreators({ setUsers }, useAppDispatch());
-  const { createUser, isLoading, removeUser } = useUsers(actions.setUsers);
+  const { isLoading, removeUser } = useUsers(actions.setUsers);
   const { openEditModal } = useOpenEditModal();
 
   const { headers } = useTableHeader(removeUser, openEditModal);
@@ -22,11 +22,11 @@ export function UsersPage({ children }: { children: ReactNode }) {
     <UsersPageWrapper
       actions={
         <UiOverlay>
-          <UserCreate onCreate={createUser} />
+          <UserCreate />
         </UiOverlay>
       }
       list={
-        <UiOverlay>
+        <UiOverlay className="flex-grow overflow-hidden flex flex-col">
           <UiTable
             items={usersList}
             isLoading={isLoading}

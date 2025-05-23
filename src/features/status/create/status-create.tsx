@@ -1,33 +1,33 @@
 import { StatusCreateWrapper } from './ui/status-create-wrapper';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { UiButton, UiInput } from '@/shared/ui';
-import { Status, StatusPayload } from '@/entities/status';
+import { setStatuses, useStatuses } from '@/entities/status';
 import { StatusCreateFormWrapper } from './ui/status-create-form-wrapper';
 import { UiColorSelect } from '@/shared/ui/ui-color-select';
 import { statusColors } from '@/entities/status/model/constants';
-type Props = {
-  onCreate: (data: StatusPayload) => Promise<void>;
-};
-export function StatusCreate({ onCreate }: Props) {
-  const { control, reset, handleSubmit } = useForm<Status>({
-    defaultValues: {
-      name: '',
-      color: null,
-    },
-  });
+import { useFormFields } from './view-model/use-form';
+import { bindActionCreators } from 'redux';
+import { useAppDispatch } from '@/shared/lib';
+
+export function StatusCreate() {
+  const actions = bindActionCreators({ setStatuses }, useAppDispatch());
+
+  const { createStatus } = useStatuses(actions.setStatuses);
+  const { control, reset, handleSubmit, nameRules, colorRules } =
+    useFormFields();
   return (
     <StatusCreateWrapper>
       <form
         className="flex items-end gap-x-4 w-full"
         onSubmit={handleSubmit((data) => {
-          onCreate?.(data);
+          createStatus?.(data);
           reset();
         })}
       >
         <StatusCreateFormWrapper>
           <Controller
             name="color"
-            rules={{ required: 'Цвет - обязательное поле' }}
+            rules={colorRules}
             control={control}
             render={({ field, fieldState }) => (
               <UiColorSelect
@@ -41,7 +41,7 @@ export function StatusCreate({ onCreate }: Props) {
           <Controller
             control={control}
             name="name"
-            rules={{ required: 'Название статуса - обязательное поле' }}
+            rules={nameRules}
             render={({ field, fieldState }) => (
               <UiInput
                 className="flex-1"

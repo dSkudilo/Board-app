@@ -2,16 +2,17 @@
 import { useFormFields } from './view-model/use-form';
 import { Controller } from 'react-hook-form';
 import { UiButton, UiInput } from '@/shared/ui';
-import { avatarArr, UserPayload } from '@/entities/user';
+import { avatarArr, setUsers, useUsers } from '@/entities/user';
 import { UserCreateWrapper } from '@/features/user/create/ui/user-create-wrapper';
 import { UserCreateFormWrapper } from '@/features/user/create/ui/user-create-form-wrapper';
 import { UiImgSelect } from '@/shared/ui/ui-img-select';
+import { bindActionCreators } from 'redux';
+import { useAppDispatch } from '@/shared/lib';
 
-type Props = {
-  onCreate: (data: UserPayload) => Promise<void>;
-};
+export function UserCreate() {
+  const actions = bindActionCreators({ setUsers }, useAppDispatch());
+  const { createUser } = useUsers(actions.setUsers);
 
-export function UserCreate({ onCreate }: Props) {
   const { control, reset, handleSubmit, usernameRules, avatarRules } =
     useFormFields();
   return (
@@ -19,7 +20,7 @@ export function UserCreate({ onCreate }: Props) {
       <form
         className="flex items-end gap-x-4 w-full"
         onSubmit={handleSubmit((data) => {
-          onCreate?.(data);
+          createUser?.(data);
           reset();
         })}
       >
