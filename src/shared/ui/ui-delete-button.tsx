@@ -1,20 +1,27 @@
 import { UiButton } from '@/shared/ui/ui-button';
-import { Delete } from 'lucide-react';
+import { Trash } from 'lucide-react';
+import React from 'react';
 
 type Props<T> = {
   item: T;
-  onDelete: (item: T) => void;
+  onDelete: (
+    item: T,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  onMouseDown?: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
 };
-//TODO сделать конфирм модалку для удаления
-export function UiDeleteButton<T>({ item, onDelete }: Props<T>) {
+export function UiDeleteButton<T>({ item, onDelete, onMouseDown }: Props<T>) {
   return (
     <UiButton
+      onMouseDown={(event) => onMouseDown && onMouseDown(event)}
       variant="destructive"
       size="icon"
       className="cursor-pointer"
-      onClick={() => onDelete(item)}
+      onClick={(event) => onDelete(item, event)}
     >
-      <Delete />
+      <Trash />
     </UiButton>
   );
 }

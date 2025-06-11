@@ -1,6 +1,6 @@
-import { Status } from '@/entities/status/model/domain/types';
+import { Status } from './model/domain/types';
 import { createSlice } from '@reduxjs/toolkit';
-import { statusesLoadComplete } from '@/entities/status/model/domain/events';
+import { statusesLoadComplete } from './model/domain/events';
 
 type StatusesState = {
   statuses: Status[];

@@ -1,7 +1,8 @@
+'use client';
 import { StatusPayload } from './types';
 import { Status } from './domain/types';
 import { nanoid } from 'nanoid';
-import { statusesRepository } from '@/entities/status/model/statuses-repository';
+import { statusesRepository } from './statuses-repository';
 import { useEffect, useState } from 'react';
 import { uiToast } from '@/shared/ui';
 

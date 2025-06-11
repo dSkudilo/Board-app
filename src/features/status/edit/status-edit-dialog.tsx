@@ -1,6 +1,6 @@
 import { UiButton, UiDialog, UiInput } from '@/shared/ui';
-import { setStatuses, Status, useStatus, useStatuses } from '@/entities/status';
-import { Controller, useForm } from 'react-hook-form';
+import { setStatuses, useStatus, useStatuses } from '@/entities/status';
+import { Controller } from 'react-hook-form';
 import { UiColorSelect } from '@/shared/ui/ui-color-select';
 import { statusColors } from '@/entities/status/model/constants';
 import { bindActionCreators } from 'redux';

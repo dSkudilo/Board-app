@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { statusesSlice } from '@/entities/status/statuses-store';
+import { statusesSlice } from '../../statuses-store';
 export const selectStatusesList = createSelector(
   statusesSlice.selectors.selectStatuses,
   (statuses) => {

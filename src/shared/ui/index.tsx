@@ -19,3 +19,5 @@ export { renderTableCellWithClosure } from './ui-table/model/render-table-cell-w
 export { uiToast } from './ui-toaster';
 export { UiImgSelect } from './ui-img-select';
 export { UiImgCell } from './ui-img-cell';
+export { UiSelect } from './ui-select';
+export { UiConfirmationDelete } from './ui-confirmation-delete';
