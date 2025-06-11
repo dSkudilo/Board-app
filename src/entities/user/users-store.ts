@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { User } from '@/entities/user/model/domain/types';
-import { usersLoadComplete } from '@/entities/user/model/domain/events';
+import { User } from './model/domain/types';
+import { usersLoadComplete } from './model/domain/events';
 
 type UsersState = {
   users: User[];

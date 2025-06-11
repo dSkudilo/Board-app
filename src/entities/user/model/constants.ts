@@ -1,4 +1,3 @@
-import { Avatar } from './domain/types';
 import avatar1 from '../assets/avatars/1.png';
 import avatar2 from '../assets/avatars/2.png';
 import avatar3 from '../assets/avatars/3.png';
@@ -7,7 +6,8 @@ import avatar5 from '../assets/avatars/5.png';
 import avatar6 from '../assets/avatars/6.png';
 import avatar7 from '../assets/avatars/7.png';
 import avatar8 from '../assets/avatars/8.png';
-export const avatarArr: Avatar[] = [
+import { FileType } from '@/shared/lib';
+export const avatarArr: FileType[] = [
   { id: '1', url: avatar1.src },
   { id: '2', url: avatar2.src },
   { id: '3', url: avatar3.src },

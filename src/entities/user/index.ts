@@ -6,3 +6,5 @@ export { useUser } from './model/use-user';
 export { setUsers } from './model/use-case/set-users';
 export { selectUsersList } from './model/selectors/users-list';
 export { avatarArr } from './model/constants';
+export { UserSelect } from './facade/user-select';
+export { UserPreview } from './ui/user-preview';

@@ -1,3 +1,4 @@
+'use client';
 import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 import { uiToast } from '@/shared/ui';

@@ -3,6 +3,10 @@ import { ROUTER_PATHS } from '@/shared/constants';
 
 export const navList: NavItem[] = [
   {
+    title: 'Доска',
+    href: ROUTER_PATHS.BOARD,
+  },
+  {
     title: 'Статусы',
     href: ROUTER_PATHS.STATUSES,
   },

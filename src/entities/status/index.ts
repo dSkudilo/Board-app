@@ -5,3 +5,6 @@ export { useStatus } from './model/use-status';
 export { setStatuses } from './model/use-case/set-statuses';
 export { selectStatusesList } from './model/selectors/statuses-list';
 export { statusesReducer } from './statuses-store';
+export { StatusSelect } from './facade/status-select';
+export { StatusPreview } from './facade/status-preview';
+export { StatusColorIndicator } from './ui/status-color-indicator';

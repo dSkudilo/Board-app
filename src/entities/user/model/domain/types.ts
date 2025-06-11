@@ -1,8 +1,9 @@
 import { FileType } from '@/shared/lib';
+import { Identifiable } from '@/shared/ui/ui-table/model/types';
 
-export type User = {
+export type User = Identifiable & {
   id: string;
-  name?: string;
+  name: string;
   username: string;
   email?: string;
   password?: string;

@@ -1,5 +1,5 @@
 import { persistStorage } from '@/shared/lib';
-import { Status } from '@/entities/status/model/domain/types';
+import { Status } from './domain/types';
 
 const STATUSES_STORAGE_KEY = 'statuses_storage';
 

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Status } from '@/entities/status';
-import { statusesRepository } from '@/entities/status/model/statuses-repository';
+import { Status } from './domain/types';
+import { statusesRepository } from './statuses-repository';
 import { uiToast } from '@/shared/ui';
 
 export function useStatus(id: string, loadStatuses: () => Promise<void>) {

@@ -15,7 +15,6 @@ export const UiTable = memo(function UiTable<T extends Identifiable>({
   numberItemsForLoader = 10,
 }: TableProps<T>) {
   const { gridTemplateColumns } = useRow(headers);
-  console.log('render table');
   return (
     <TableWrapper className={className}>
       <TableHeaderRow style={{ gridTemplateColumns }}>
